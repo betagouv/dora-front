@@ -24,10 +24,12 @@
           categories.some((category) => value.startsWith(category))
         )
       : [];
-    subcategories = orderAndReformatSubcategories(
+
+    subcategories = orderAndReformatSubcategories({
       subcategories,
-      servicesOptions.categories
-    );
+      categories: servicesOptions.categories,
+      multipleCategoriesSelected: categories.length > 1,
+    });
 
     service.subcategories = service.subcategories.filter((scat) =>
       categories.some((category) => scat.startsWith(category))

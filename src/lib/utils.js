@@ -114,16 +114,21 @@ export function moveToTheEnd(
   return [...beginning, ...elementsToMove];
 }
 
-export function orderAndReformatSubcategories(subcategories, categories) {
+export function orderAndReformatSubcategories({
+  subcategories,
+  categories,
+  multipleCategoriesSelected,
+}) {
   return moveToTheEnd(subcategories, "label", "Autre", {
     sortBeginning: true,
   }).map(({ value, label }) => {
     const categorie = categories.find(
-      (cat) => cat.value === value.replace("--autre", "")
+      (cat) => cat.value === value.split("--")[0]
     );
+
     return {
       value,
-      label: value.endsWith("--autre")
+      label: multipleCategoriesSelected
         ? `${label} (${categorie?.label})`
         : label,
     };
